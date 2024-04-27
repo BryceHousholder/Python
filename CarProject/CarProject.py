@@ -36,7 +36,7 @@ sortedSpeedMins = df.loc[(sortedSpeed.index, 'SECONDS')] / 60 # mins
 #plt.show()
 
 # MPH and Distance Plot
-""" fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 
 ax1.plot(sortedDistanceMins, sortedDistanceValues, color='blue')
 ax1.set_title('Distance Driven During Trip')
@@ -48,18 +48,18 @@ ax2.set_title('Instant MPH During Trip')
 ax2.set_xlabel('Minutes')
 ax2.set_ylabel('MPH')
 plt.tight_layout()
-plt.show() """
+plt.show()
 
 # Fuel Used
 sortedFuelUsed = df[(df['PID'] == 'Fuel used') & (df['VALUE'].notnull() )] 
 sortedFuelUsedValues = sortedFuelUsed['VALUE'] # [Gallons]
 totalFuelUsed = round((sortedFuelUsed.iloc[-1]['VALUE']),2)
 # Plot Fuel Used4
-""" plt.plot(sortedDistanceMins,sortedFuelUsedValues)
+plt.plot(sortedDistanceMins,sortedFuelUsedValues)
 plt.title('Fuel Used During Trip')
 plt.xlabel('Mins')
 plt.ylabel('Gallons')
-plt.show() """
+plt.show()
 # Calculate total cost of trip
 pricePerGallon = input('What was the cost per gallon the last time you filled up? $')
 pricePerGallon = float(pricePerGallon)
