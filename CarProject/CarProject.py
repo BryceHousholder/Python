@@ -17,23 +17,10 @@ sortedDistanceValues = sortedDistance['VALUE'] # miles
 sortedDistanceMins = df.loc[(sortedDistance.index, 'SECONDS')] / 60 # mins
 totalDistance = round((sortedDistance.iloc[-1]['VALUE']),2) # miles
 
-# plot Distance [Miles]/ Time [Min]
-#plt.plot(sortedDistanceMins,sortedDistanceValues)
-#plt.title('Distance Driven During Trip')
-#plt.xlabel('Minutes')
-#plt.ylabel('Miles')
-#plt.show()
-
 # Vehicle Speed Calculation
 sortedSpeed = df[(df['PID'] == 'Vehicle speed') & (df['VALUE'].notnull() )] 
 sortedSpeedValues = sortedSpeed['VALUE'] # MPH
 sortedSpeedMins = df.loc[(sortedSpeed.index, 'SECONDS')] / 60 # mins
-# Vehicle Speed Plot
-#plt.plot(sortedSpeedMins,sortedSpeedValues)
-#plt.title('Instant MPH During Trip')
-#plt.xlabel('Minutes')
-#plt.ylabel('MPH')
-#plt.show()
 
 # MPH and Distance Plot
 fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
@@ -49,12 +36,33 @@ ax2.set_xlabel('Minutes')
 ax2.set_ylabel('MPH')
 plt.tight_layout()
 plt.show()
+# Throttle Position
+sortedTPosition = df[(df['PID'] == 'Throttle position') & (df['VALUE'].notnull() )] 
+sortedTPositionValues = sortedTPosition['VALUE'] # %
+# Acceleration Calculation
+sortedAcceleration = df[(df['PID'] == 'Vehicle acceleration') & (df['VALUE'].notnull())]
+sortedAccelerationValues = sortedAcceleration['VALUE'] # G
+# Plot Throttle Position vs Acceleration
+fig, (ax3 , ax4 ) = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+
+ax3.plot(sortedSpeedMins, sortedAccelerationValues, color='blue')
+ax3.set_title('Acceleration')
+ax3.set_xlabel('Minutes')
+ax3.set_ylabel('G-Force')
+
+ax4.plot(sortedSpeedMins, sortedTPositionValues, color='red')
+ax4.set_title('Throttle Position')
+ax4.set_xlabel('Minutes')
+ax4.set_ylabel('% Engaged')
+plt.tight_layout()
+plt.show()
+
 
 # Fuel Used
 sortedFuelUsed = df[(df['PID'] == 'Fuel used') & (df['VALUE'].notnull() )] 
 sortedFuelUsedValues = sortedFuelUsed['VALUE'] # [Gallons]
 totalFuelUsed = round((sortedFuelUsed.iloc[-1]['VALUE']),2)
-# Plot Fuel Used4
+# Plot Fuel Used
 plt.plot(sortedDistanceMins,sortedFuelUsedValues)
 plt.title('Fuel Used During Trip')
 plt.xlabel('Mins')
@@ -66,7 +74,4 @@ pricePerGallon = float(pricePerGallon)
 costOfTrip = round(pricePerGallon * totalFuelUsed,2)
 print('The total cost of your trip was $',costOfTrip)
 
-# Throttle Position
-sortedTPosition = df[(df['PID'] == 'Throttle position') & (df['VALUE'].notnull() )] 
-sortedTPositionValues = sortedTPosition['VALUE'] # 
 
