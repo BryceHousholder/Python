@@ -65,3 +65,8 @@ pricePerGallon = input('What was the cost per gallon the last time you filled up
 pricePerGallon = float(pricePerGallon)
 costOfTrip = round(pricePerGallon * totalFuelUsed,2)
 print('The total cost of your trip was $',costOfTrip)
+
+# Throttle Position
+sortedTPosition = df[(df['PID'] == 'Throttle position') & (df['VALUE'].notnull() )] 
+sortedTPositionValues = sortedTPosition['VALUE'] # 
+
